@@ -10,4 +10,14 @@ class HomeViewModel : ViewModel() {
         value = "This is home Fragment, there will be two options here to add a pin or remove a pin of a bird sighting"
     }
     val text: LiveData<String> = _text
+
+
+
+
+
+
+
+
+
+
 }

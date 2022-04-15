@@ -32,4 +32,22 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+
+
+
+    fun addBird(){
+
+    }
+
+    fun removeBird(){
+
+    }
+
+    fun openGlossary(){
+
+    }
+
+
+
 }
