@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "in onAddBird function")
         val intent = Intent(this, PromptFormActivity::class.java)
         startActivity(intent)
-
     }
 
     fun onRemoveBird(view: View) {
