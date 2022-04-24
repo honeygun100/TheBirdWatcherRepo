@@ -1,6 +1,9 @@
 package com.example.birdwatcher
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -36,18 +39,40 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun addBird(){
+
+
+
+
+
+
+
+
+
+
+
+    fun onAddBird(view: View) {
+        Log.i(TAG, "in onAddBird function")
+        val intent = Intent(this, PromptFormActivity::class.java)
+        startActivity(intent)
 
     }
 
-    fun removeBird(){
+    fun onRemoveBird(view: View) {
+        Log.i(TAG, "in onRemoveBird function")
 
     }
 
-    fun openGlossary(){
+    fun onOpenGlossary(view: View) {
+        Log.i(TAG, "in onOpenGlossary function")
 
     }
 
 
+
+
+    companion object{
+        val TAG = "MainActivityLogTag"
+    }
 
 }
+
