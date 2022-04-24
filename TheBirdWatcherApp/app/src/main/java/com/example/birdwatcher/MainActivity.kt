@@ -1,6 +1,10 @@
 package com.example.birdwatcher
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -19,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -36,18 +42,54 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun addBird(){
+
+
+
+
+
+
+
+
+
+
+    fun onAddBird(view: View) {
+        Log.i(TAG, "in onAddBird function")
+        val intent = Intent(this, PromptFormActivity::class.java)
+        startActivity(intent)
 
     }
 
-    fun removeBird(){
+    fun onRemoveBird(view: View) {
+        Log.i(TAG, "in onRemoveBird function")
 
     }
 
-    fun openGlossary(){
+    fun onOpenGlossary(view: View) {
+        Log.i(TAG, "in onOpenGlossary function")
 
     }
 
 
+
+
+    companion object{
+        val TAG = "MainActivityLogTag"
+    }
 
 }
+
+/*
+//set up button listeners
+val add_bird_button = findViewById<Button>(R.id.add_bird_button)
+add_bird_button.setOnClickListener {
+    onAddBird()
+}
+val remove_bird_button = findViewById<Button>(R.id.remove_bird_button)
+remove_bird_button.setOnClickListener {
+    onRemoveBird()
+}
+val bird_glossary_button = findViewById<Button>(R.id.bird_glossary_button)
+bird_glossary_button.setOnClickListener {
+    onOpenGlossary()
+}
+*/
