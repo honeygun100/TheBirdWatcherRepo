@@ -18,6 +18,8 @@
         <entry key="..\:/MYCODE/CMSC436/git_repo/TheBirdWatcherRepo/TheBirdWatcherApp/app/src/main/res/layout/promptform.xml" value="0.5" />
         <entry key="..\:/MYCODE/CMSC436/git_repo/TheBirdWatcherRepo/TheBirdWatcherApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33177083333333335" />
         <entry key="..\:/MYCODE/CMSC436/git_repo/TheBirdWatcherRepo/TheBirdWatcherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.168" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20018115942028986" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.20018115942028986" />
       </map>
     </option>
   </component>
