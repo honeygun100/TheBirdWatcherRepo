@@ -23,7 +23,6 @@ class PromptFormActivity : AppCompatActivity() {
 
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
-    private lateinit var toolBar: Toolbar
     private lateinit var uploadImageButton: Button
     private lateinit var uploadImageView: ImageView
 
@@ -52,8 +51,7 @@ class PromptFormActivity : AppCompatActivity() {
         uploadImageView = findViewById(R.id.uploadImageView)
 
         // Setting up Toolbar
-        toolBar = findViewById(R.id.toolBar)
-        setSupportActionBar(toolBar)
+        setSupportActionBar(findViewById(R.id.toolBar))
 
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -79,6 +77,9 @@ class PromptFormActivity : AppCompatActivity() {
             nameEditText.setText(intent.getStringExtra("name"))
             notesEditText.setText(intent.getStringExtra("notes"))
             raritySpinner.setSelection(rarityTypes[intent.getStringExtra("rarity")]!!)
+
+//            intent = Intent(applicationContext, MarkBirdLocationActivity::class.java)
+
             latLng = intent.getStringExtra("latLng").toString()
             address = intent.getStringExtra("address").toString()
             uploadImageView.setImageBitmap(Utils.getBitmapFromMemCache(intent.getStringExtra("id").toString()))
@@ -100,13 +101,12 @@ class PromptFormActivity : AppCompatActivity() {
     }
 
     fun onSetMarker(view: View) {
-
-        val intent = Intent(applicationContext, MarkLocationOfBirdActivity::class.java)
+        val intent = Intent(applicationContext, MarkBirdLocationActivity::class.java)
         intent.putExtra("address", address)
         intent.putExtra("latLng", latLng)
 
-        Log.i("LATLNG", "setBirdMarker: " + latLng)
-        Log.i("LATLNG", "setBirdMarker: " + address)
+        Log.i("in prompt LATLNG", "onSetMarker: $latLng")
+        Log.i("in prompt Address", "setBirdMarker: $address")
 
         startActivityForResult(intent, 1)
     }
@@ -151,11 +151,11 @@ class PromptFormActivity : AppCompatActivity() {
         }
 
         if (requestCode == 1 && resultCode == RESULT_OK && data!!.hasExtra("latLng")) {
-            Log.i("ADDRESS", "PERKELE")
-            Log.i("LATLNG", "DetailsActivity: " + data.getStringExtra("latLng"))
-            Log.i("LATLNG", "DetailsActivity: " + data.getStringExtra("address"))
+            Log.i("LATLNG", "prompt onActivityResult: " + data.getStringExtra("latLng"))
+            Log.i("LATLNG", "prompt onActivityResult: " + data.getStringExtra("address"))
 
             latLng = data.getStringExtra("latLng").toString()
+            Log.i("latlng if request code ==1: ", latLng)
             //latitude = data!!.getStringExtra("latitude")
             //longitude = data!!.getStringExtra("longitude")
             address = data.getStringExtra("address").toString()
@@ -175,10 +175,10 @@ class PromptFormActivity : AppCompatActivity() {
             Utils.getBytes(image.drawToBitmap()),
             latLng, address
         )
+        Log.i("latlng after add in prompt: ", "$latLng.toString()")
 
-        Toast.makeText(this, "Data added", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Data added ltlng-> $latLng <-", Toast.LENGTH_SHORT).show()
         finish()
-
     }
 
     fun update(v: View) {

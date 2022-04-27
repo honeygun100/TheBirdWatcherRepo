@@ -37,19 +37,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     fun onAddBird(view: View) {
         Log.i(TAG, "in onAddBird function")
         val intent = Intent(this, PromptFormActivity::class.java)
@@ -63,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     fun onOpenGlossary(view: View) {
         Log.i(TAG, "in onOpenGlossary function")
-
+        val intent = Intent(this, Glossary::class.java)
+        startActivity(intent)
     }
 
 

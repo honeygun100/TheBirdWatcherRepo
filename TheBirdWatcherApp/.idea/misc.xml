@@ -20,6 +20,14 @@
         <entry key="..\:/MYCODE/CMSC436/git_repo/TheBirdWatcherRepo/TheBirdWatcherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.168" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20018115942028986" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.20018115942028986" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1889564336372847" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1889564336372847" />
+        <entry key="app/src/main/res/layout/glossary.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/google_maps_api.xml" value="0.10131712259371833" />
+        <entry key="app/src/main/res/layout/list_row.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/marklocationofbird.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/promptform.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.35520833333333335" />
       </map>
     </option>
   </component>
