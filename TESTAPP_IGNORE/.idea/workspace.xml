@@ -10,11 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c642738-21f5-480d-9279-138544e33e2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/java/com/example/birdwatcher/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/java/com/example/birdwatcher/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/java/com/example/birdwatcher/ui/dashboard/DashboardFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/java/com/example/birdwatcher/ui/dashboard/DashboardFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/fragment_dashboard.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/promptform.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TheBirdWatcherApp/app/src/main/res/layout/promptform.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
