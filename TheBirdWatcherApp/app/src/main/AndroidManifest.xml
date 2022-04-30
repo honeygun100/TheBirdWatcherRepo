@@ -22,6 +22,18 @@
         <activity
             android:name=".PromptFormActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MarkBirdLocationActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".DeleteBirdActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Glossary"
+            android:exported="true">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,15 +43,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".MarkBirdLocationActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".Glossary"
-            android:exported="true">
-        </activity>
 
         <activity
             android:name=".MainActivity"

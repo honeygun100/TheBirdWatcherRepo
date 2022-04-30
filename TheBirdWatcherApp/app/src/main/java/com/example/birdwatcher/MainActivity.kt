@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     fun onRemoveBird(view: View) {
         Log.i(TAG, "in onRemoveBird function")
-
+        val intent = Intent(this, DeleteBirdActivity::class.java)
+        startActivity(intent)
     }
 
     fun onOpenGlossary(view: View) {
