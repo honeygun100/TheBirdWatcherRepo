@@ -7,49 +7,45 @@
     android:visibility="visible"
     tools:context=".ui.home.HomeFragment">
 
+
     <TextView
         android:id="@+id/text_home"
-        android:layout_width="197dp"
-        android:layout_height="223dp"
-        android:layout_marginTop="128dp"
+        android:layout_width="309dp"
+        android:layout_height="123dp"
+        android:layout_marginBottom="4dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bird_glossary_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_bird_button"
+        app:layout_constraintVertical_bias="0.922" />
 
     <Button
         android:id="@+id/add_bird_button"
-        android:layout_width="409dp"
-        android:layout_height="65dp"
+        android:layout_width="410dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="4dp"
         android:onClick="onAddBird"
         android:text="@string/add_bird"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/remove_bird_button"
-        android:layout_width="409dp"
-        android:layout_height="70dp"
-        android:text="@string/remove_bird"
-        android:onClick="onRemoveBird"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_bird_button" />
-
-
-
-    <Button
         android:id="@+id/bird_glossary_button"
         android:layout_width="409dp"
-        android:layout_height="69dp"
-        android:text="@string/bird_glossary"
+        android:layout_height="200dp"
         android:onClick="onOpenGlossary"
+        android:text="@string/bird_glossary"
+        app:layout_constraintBottom_toTopOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remove_bird_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_bird_button"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

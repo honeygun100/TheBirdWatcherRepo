@@ -92,7 +92,7 @@ class Glossary : AppCompatActivity() {
         customAdapter?.notifyDataSetChanged()
 
         if (birdList.count() == 0) {
-            textView.text = "Add a bird."
+            textView.text = "List of birds you have added will show here!"
         } else {
             textView.visibility = View.GONE
 
