@@ -1,27 +1,23 @@
 package com.example.birdwatcher
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import com.example.birdwatcher.Utils.Utils
-import java.time.LocalDateTime
 
 
 class PromptFormActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
-    private val nHandler = NotifHelper(this, null)
 
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
@@ -34,14 +30,15 @@ class PromptFormActivity : AppCompatActivity() {
     private var latLng: String = ""
     private var address: String = ""
 
-    private var rarityTypes =
-        mapOf(Pair("Common", 0), Pair("Rare", 1), Pair("Extremely rare", 2))
+    private var rarityTypes = mapOf(
+        Pair("Common", 0),
+        Pair("Rare", 1),
+        Pair("Extremely rare", 2)
+    )
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId === android.R.id.home) {
-            finish()
-        }
+        if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 
@@ -49,11 +46,9 @@ class PromptFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.promptform)
 
-        // Setting up image related vars
         uploadImageButton = findViewById(R.id.uploadImageButton)
         uploadImageView = findViewById(R.id.uploadImageView)
 
-        // Setting up Toolbar
         setSupportActionBar(findViewById(R.id.toolBar))
 
         supportActionBar?.title = ""
@@ -63,7 +58,6 @@ class PromptFormActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         notesEditText = findViewById(R.id.notesEditText)
         raritySpinner = findViewById(R.id.raritySpinner)
-
 
         raritySpinner.adapter =
             ArrayAdapter(
@@ -81,10 +75,8 @@ class PromptFormActivity : AppCompatActivity() {
             notesEditText.setText(intent.getStringExtra("notes"))
             raritySpinner.setSelection(rarityTypes[intent.getStringExtra("rarity")]!!)
 
-//            intent = Intent(applicationContext, MarkBirdLocationActivity::class.java)
-
-            latLng = intent.getStringExtra("latLng").toString()
-            address = intent.getStringExtra("address").toString()
+            latLng = intent.getStringExtra("latLng")!!
+            address = intent.getStringExtra("address")!!
             uploadImageView.setImageBitmap(Utils.getBitmapFromMemCache(intent.getStringExtra("id").toString()))
 
             findViewById<Button>(R.id.btnAdd).visibility = View.GONE
@@ -108,15 +100,11 @@ class PromptFormActivity : AppCompatActivity() {
         intent.putExtra("address", address)
         intent.putExtra("latLng", latLng)
 
-        Log.i("in prompt LATLNG", "onSetMarker: $latLng")
-        Log.i("in prompt Address", "setBirdMarker: $address")
-
         startActivityForResult(intent, 1)
     }
 
     private fun getPhoto() {
-        val intent =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, 1)
     }
 
@@ -127,24 +115,20 @@ class PromptFormActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getPhoto()
-            }
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getPhoto()
         }
     }
-    @Deprecated("hi")
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         val selectedImage: Uri? = data?.data
-        Log.i("REMOVING", "onActivityResult")
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && selectedImage != null) {
             try {
                 val bitMap: Bitmap =
                     MediaStore.Images.Media.getBitmap(this.contentResolver, selectedImage)
-
 
                 uploadImageView.setImageBitmap(bitMap)
                 Utils.addBitmapToMemoryCache(intent.getStringExtra("id").toString(), bitMap)
@@ -154,14 +138,8 @@ class PromptFormActivity : AppCompatActivity() {
         }
 
         if (requestCode == 1 && resultCode == RESULT_OK && data!!.hasExtra("latLng")) {
-            Log.i("LATLNG", "prompt onActivityResult: " + data.getStringExtra("latLng"))
-            Log.i("LATLNG", "prompt onActivityResult: " + data.getStringExtra("address"))
-
-            latLng = data.getStringExtra("latLng").toString()
-            Log.i("latlng if request code ==1: ", latLng)
-            //latitude = data!!.getStringExtra("latitude")
-            //longitude = data!!.getStringExtra("longitude")
-            address = data.getStringExtra("address").toString()
+            latLng = data.getStringExtra("latLng")!!
+            address = data.getStringExtra("address")!!
         }
     }
 
@@ -176,14 +154,11 @@ class PromptFormActivity : AppCompatActivity() {
             rarity.toString(),
             notes,
             Utils.getBytes(image.drawToBitmap()),
-            latLng, address
+            latLng,
+            address
         )
-        nHandler.insertRow(
-            LocalDateTime.now().toString() + ": You added " + nameEditText.text.toString() + "."
-        )
-        Log.i("latlng after add in prompt: ", "$latLng.toString()")
 
-        Toast.makeText(this, "Data added ltlng-> $latLng <-", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Bird Added!", Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -202,16 +177,13 @@ class PromptFormActivity : AppCompatActivity() {
             latLng, address
         )
 
-        Toast.makeText(this, "Data updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Bird Updated!", Toast.LENGTH_SHORT).show()
         finish()
     }
 
     fun delete(v: View) {
         dbHandler.deleteRow(modifyId)
-        nHandler.insertRow(
-            LocalDateTime.now().toString() + ": You deleted "+nameEditText.text.toString()+"."
-        )
-        Toast.makeText(this, "Data deleted", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Bird deleted", Toast.LENGTH_SHORT).show()
         finish()
     }
 }

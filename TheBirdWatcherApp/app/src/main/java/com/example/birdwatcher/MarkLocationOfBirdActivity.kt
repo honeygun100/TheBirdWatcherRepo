@@ -5,10 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,50 +18,35 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-
-
 class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private var locationManager: LocationManager? = null
     private var locationListener: LocationListener? = null
-    //    private var userLocation: LatLng? = null
     private lateinit var newLatLng: LatLng
     private var address: String = ""
 
+    private fun centerMapOnLocation(location: Location?, title: String?) {
+        //add user location on map
+        if (intent.getStringExtra("latLng").isNullOrEmpty() && location != null) {
+            val userLocation = LatLng(location.latitude, location.longitude)
+            mMap.addMarker(MarkerOptions().position(userLocation).title(title))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10f))
 
-    fun centerMapOnLocation(location: Location?, title: String?) {
-
-        if (intent.getStringExtra("latLng").isNullOrEmpty()) {
-            if (location != null) {
-                val userLocation = LatLng(location.latitude, location.longitude)
-                Log.i("userLocation", "$userLocation")
-
-                mMap.addMarker(MarkerOptions().position(userLocation).title(title))
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10f))
-            }
         } else {
-            val latLngArray = intent.getStringExtra("latLng")!!.split(" ", ",")
+            //get user location on map
+            val latLngStr = intent.getStringExtra("latLng")!!.split(" ", ",")
+            val latitude = latLngStr[1].substring(1, latLngStr[1].length).toDouble()
+            val longitude = latLngStr[2].substring(0, latLngStr[2].length - 1).toDouble()
 
-            Log.i("latlngarr", "$latLngArray")
-
-            val latitude = latLngArray[1].substring(1, latLngArray[1].length).toDouble()
-            val longitude = latLngArray[2].substring(0, latLngArray[2].length - 1).toDouble()
-
-            Log.i("latitude", "$latitude")
-            Log.i("longitude", "$longitude")
-
-            val location = LatLng(latitude, longitude)
+            val newLocation = LatLng(latitude, longitude)
             val address = intent.getStringExtra("address")
 
-            Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show()
-
-            mMap.addMarker(MarkerOptions().position(location).title(address))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
-
+            mMap.addMarker(MarkerOptions().position(newLocation).title(address))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 10f))
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -72,111 +54,86 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    locationListener?.let {
-                        locationManager!!.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER,
-                            0,
-                            0f,
-                            it
-                        )
-                    }
-                }
+        if (requestCode == 1
+            && grantResults.isNotEmpty()
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED
+            && (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            locationListener?.let {
+                locationManager!!.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    0,
+                    0f,
+                    it
+                )
             }
         }
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId === android.R.id.home) {
-
-            val resultIntent = Intent(this, PromptFormActivity::class.java)
-
-            resultIntent.putExtra("latLng", newLatLng.toString())
-            resultIntent.putExtra("address", address)
-
-            Log.i("LATLNG", "onOptionsItemSelected: $address")
-            Log.i("LATLNG", "onOptionsItemSelected: $newLatLng")
-            setResult(RESULT_OK, resultIntent)
+        if (item.itemId == android.R.id.home) {
+            val intent = Intent(this, PromptFormActivity::class.java)
+            intent.putExtra("latLng", newLatLng.toString())
+            intent.putExtra("address", address)
+            setResult(RESULT_OK, intent)
             finish()
         }
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.marklocationofbird)
 
-        // Setting up Toolbar
-        //setSupportActionBar(findViewById(com.example.birdwatcher.R.id.toolBar))
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.frag_map) as SupportMapFragment
 
-        //supportActionBar?.title = ""
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.frag_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
 
-
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
-
             val geocoder = Geocoder(applicationContext, Locale.getDefault())
+
             address = ""
-
+            //extract the address to use as title for marker
             try {
-                val listAddresses: List<Address> =
+                val addressList: List<Address> =
                     geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-
-                if (listAddresses.isNotEmpty()) {
-                    if (listAddresses[0].thoroughfare != null) {
-                        if (listAddresses[0].subThoroughfare != null) {
-                            address += listAddresses[0].subThoroughfare + " "
-                        }
-
-                        address += listAddresses[0].thoroughfare
+                if (addressList.isNotEmpty() && addressList[0].thoroughfare != null) {
+                    if (addressList[0].subThoroughfare != null) {
+                        address += addressList[0].subThoroughfare + " "
                     }
+                    address += addressList[0].thoroughfare
                 }
-                //       var sharedPreferences = getSharedPreferences()
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
 
-            if (address == "") {
-                val sdf = SimpleDateFormat(" HH:mm dd-MM-yyyy")
-                address += sdf.format(Date())
-            }
+            //add time next to address so it appears next to marker
+            val simpleDateFormat = SimpleDateFormat(" HH:mm dd-MM-yyyy", Locale.US)
+            address += simpleDateFormat.format(Date())
 
-            map.clear()
             map.addMarker(MarkerOptions().position(latLng).title(address))
             newLatLng = latLng
         }
     }
 
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Zoom in on user location
+        //zoom in on the user's location
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         locationListener =
-            object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    centerMapOnLocation(location, "Your location.")
-                }
-
-                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-//                override fun onProviderEnabled(provider: String?) {}
-//                override fun onProviderDisabled(provider: String?) {}
-            }
+            LocationListener { location -> centerMapOnLocation(location, "Your location.") }
 
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -187,9 +144,11 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 LocationManager.GPS_PROVIDER,
                 0, 10f, locationListener as LocationListener
             )
-            val lastKnownLocation =
-                locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            centerMapOnLocation(lastKnownLocation, "Your Location")
+
+            //use user's last known location if need be
+            val lastLocation = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            centerMapOnLocation(lastLocation, "Your Location")
+
         } else {
             ActivityCompat.requestPermissions(
                 this,
@@ -197,6 +156,7 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 1
             )
         }
+
         setMapLongClick(mMap)
     }
 }

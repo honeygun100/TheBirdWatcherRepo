@@ -10,11 +10,7 @@ class DeleteBirdActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete_bird)
 
-
     }
-
-
-
 
 
 }
