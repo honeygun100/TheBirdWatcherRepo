@@ -1,6 +1,7 @@
 package com.example.birdwatcher
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,14 +13,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.drawToBitmap
 import com.example.birdwatcher.Utils.Utils
+import java.time.LocalDateTime
 
 
 class PromptFormActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
+    private val nHandler = NotifHelper(this, null)
 
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
@@ -34,6 +36,7 @@ class PromptFormActivity : AppCompatActivity() {
 
     private var rarityTypes =
         mapOf(Pair("Common", 0), Pair("Rare", 1), Pair("Extremely rare", 2))
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId === android.R.id.home) {
@@ -175,6 +178,9 @@ class PromptFormActivity : AppCompatActivity() {
             Utils.getBytes(image.drawToBitmap()),
             latLng, address
         )
+        nHandler.insertRow(
+            LocalDateTime.now().toString() + ": You added " + nameEditText.text.toString() + "."
+        )
         Log.i("latlng after add in prompt: ", "$latLng.toString()")
 
         Toast.makeText(this, "Data added ltlng-> $latLng <-", Toast.LENGTH_SHORT).show()
@@ -202,6 +208,9 @@ class PromptFormActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         dbHandler.deleteRow(modifyId)
+        nHandler.insertRow(
+            LocalDateTime.now().toString() + ": You deleted "+nameEditText.text.toString()+"."
+        )
         Toast.makeText(this, "Data deleted", Toast.LENGTH_SHORT).show()
         finish()
     }

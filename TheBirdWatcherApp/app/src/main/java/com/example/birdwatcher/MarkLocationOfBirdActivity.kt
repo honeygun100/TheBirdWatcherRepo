@@ -29,7 +29,7 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var locationManager: LocationManager? = null
     private var locationListener: LocationListener? = null
-//    private var userLocation: LatLng? = null
+    //    private var userLocation: LatLng? = null
     private lateinit var newLatLng: LatLng
     private var address: String = ""
 
@@ -113,11 +113,11 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.marklocationofbird)
 
         // Setting up Toolbar
-//        setSupportActionBar(findViewById(com.example.birdwatcher.R.id.toolBar))
+        //setSupportActionBar(findViewById(com.example.birdwatcher.R.id.toolBar))
 
-        supportActionBar?.title = ""
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        //supportActionBar?.title = ""
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -125,15 +125,7 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
 
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
