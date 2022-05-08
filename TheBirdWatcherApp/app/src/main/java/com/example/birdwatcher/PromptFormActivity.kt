@@ -18,6 +18,7 @@ import com.example.birdwatcher.Utils.Utils
 class PromptFormActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
+    private val nHandler = NotifHelper(this, null)
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
     private lateinit var uploadImageButton: Button
