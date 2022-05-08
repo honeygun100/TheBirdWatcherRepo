@@ -18,7 +18,6 @@ import java.time.LocalDateTime
 
 
 class PromptFormActivity : AppCompatActivity() {
-    private val nHandler = NotifHelper(this, null)
     private val dbHandler = DBHelper(this, null)
     private val nHandler = NotifHelper(this, null)
     private lateinit var nameEditText: EditText
