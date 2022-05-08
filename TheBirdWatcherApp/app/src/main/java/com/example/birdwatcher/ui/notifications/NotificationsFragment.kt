@@ -1,6 +1,7 @@
 package com.example.birdwatcher.ui.notifications
 
 import android.R
+import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import com.example.birdwatcher.databinding.FragmentNotificationsBinding
 import androidx.core.text.HtmlCompat;
 import androidx.core.view.get
 import com.example.birdwatcher.NotifHelper
+import com.example.birdwatcher.NotificationActivity
+import java.util.ArrayList
 
 class NotificationsFragment : ListFragment() {
 
@@ -27,7 +30,7 @@ class NotificationsFragment : ListFragment() {
 
 
     private val nHandler = NotifHelper(context, null)
-    private var nList = java.util.ArrayList<String>()
+    private var nList = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,29 +43,6 @@ class NotificationsFragment : ListFragment() {
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
-        nList.clear()
-        /*val cursor: Cursor? = nHandler!!.getAllRow("name")
-        cursor!!.moveToFirst()
-
-        while (!cursor.isAfterLast) {
-
-
-            val text = cursor.getString(1)
-
-            nList.add(text)
-            cursor.moveToNext()
-        }*/
-
-        Log.i("loading", nList.toString())
-
-        val listView: ListView = binding.list
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            listView.adapter =
-                ArrayAdapter(requireActivity(), R.layout.simple_list_item_activated_1, nList)
-        }
-
 
 
         return root
