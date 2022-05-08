@@ -7,16 +7,18 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import com.example.birdwatcher.Utils.Utils
+import java.time.LocalDateTime
 
 
 class PromptFormActivity : AppCompatActivity() {
-
+    private val nHandler = NotifHelper(this, null)
     private val dbHandler = DBHelper(this, null)
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
