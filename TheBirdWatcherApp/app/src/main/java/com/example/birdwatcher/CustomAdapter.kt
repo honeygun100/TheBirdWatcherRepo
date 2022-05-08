@@ -16,7 +16,8 @@ class CustomAdapter(
     private val rarityTypes: Map<Int, String> = mapOf(
         Pair(0, "Common"),
         Pair(1, "Rare"),
-        Pair(2, "Extremely rare")
+        Pair(2, "Extremely rare"),
+        Pair(3, "Un-Documented")
     )
 
 ) : BaseAdapter() {

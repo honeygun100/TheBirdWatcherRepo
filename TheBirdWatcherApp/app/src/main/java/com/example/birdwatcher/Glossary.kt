@@ -18,7 +18,7 @@ class Glossary : AppCompatActivity() {
     private var customAdapter: CustomAdapter? = null
     private lateinit var listView: ListView
 
-    private var rarityTypes = mapOf(Pair(0, "Common"), Pair(1, "Rare"), Pair(2, "Extremely rare"))
+    private var rarityTypes = mapOf(Pair(0, "Common"), Pair(1, "Rare"), Pair(2, "Extremely rare"), Pair(3, "Un-Documented"))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
