@@ -18,14 +18,11 @@ import com.example.birdwatcher.Utils.Utils
 class PromptFormActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
-
     private lateinit var nameEditText: EditText
     private lateinit var notesEditText: EditText
     private lateinit var uploadImageButton: Button
     private lateinit var uploadImageView: ImageView
-
     private lateinit var raritySpinner: Spinner
-
     private lateinit var modifyId: String
     private var latLng: String = ""
     private var address: String = ""
@@ -33,7 +30,9 @@ class PromptFormActivity : AppCompatActivity() {
     private var rarityTypes = mapOf(
         Pair("Common", 0),
         Pair("Rare", 1),
-        Pair("Extremely rare", 2)
+        Pair("Extremely Rare", 2),
+        Pair("Un-Documented", 3)
+
     )
 
 
