@@ -156,6 +156,10 @@ class PromptFormActivity : AppCompatActivity() {
             latLng,
             address
         )
+        nHandler.insertRow(
+            LocalDateTime.now().toString() + ": You added "+name+"."
+        )
+        Log.i("latlng after add in prompt: ", "$latLng.toString()")
 
         Toast.makeText(this, "Bird Added!", Toast.LENGTH_SHORT).show()
         finish()
@@ -182,6 +186,9 @@ class PromptFormActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         dbHandler.deleteRow(modifyId)
+        nHandler.insertRow(
+            LocalDateTime.now().toString() + ": You deleted "+nameEditText.text.toString()+"."
+        )
         Toast.makeText(this, "Bird deleted", Toast.LENGTH_SHORT).show()
         finish()
     }
