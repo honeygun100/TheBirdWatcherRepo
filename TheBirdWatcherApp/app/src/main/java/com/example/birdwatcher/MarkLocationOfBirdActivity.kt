@@ -34,16 +34,20 @@ class MarkBirdLocationActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10f))
 
         } else {
-            //get user location on map
-            val latLngStr = intent.getStringExtra("latLng")!!.split(" ", ",")
-            val latitude = latLngStr[1].substring(1, latLngStr[1].length).toDouble()
-            val longitude = latLngStr[2].substring(0, latLngStr[2].length - 1).toDouble()
+            try {
+                //get user location on map
+                val latLngStr = intent.getStringExtra("latLng")!!.split(" ", ",")
+                val latitude = latLngStr[1].substring(1, latLngStr[1].length).toDouble()
+                val longitude = latLngStr[2].substring(0, latLngStr[2].length - 1).toDouble()
 
-            val newLocation = LatLng(latitude, longitude)
-            val address = intent.getStringExtra("address")
+                val newLocation = LatLng(latitude, longitude)
+                val address = intent.getStringExtra("address")
 
-            mMap.addMarker(MarkerOptions().position(newLocation).title(address))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 10f))
+                mMap.addMarker(MarkerOptions().position(newLocation).title(address))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 10f))
+            }catch (e:java.lang.Exception){
+
+            }
         }
     }
 

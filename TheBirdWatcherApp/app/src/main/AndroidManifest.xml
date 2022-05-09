@@ -21,8 +21,10 @@
 
         <activity
             android:name=".PromptFormActivity"
-            android:theme="@style/AppTheme" />
-        <activity
+            android:theme="@style/AppTheme" >
+        </activity>
+
+         <activity
             android:name=".MarkBirdLocationActivity"
             android:exported="true">
         </activity>
