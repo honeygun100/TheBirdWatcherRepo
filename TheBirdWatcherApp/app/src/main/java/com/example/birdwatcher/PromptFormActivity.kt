@@ -71,17 +71,24 @@ class PromptFormActivity : AppCompatActivity() {
 
         /* Check if activity opened from List Item Click */
         if (intent.hasExtra("id")) {
-            modifyId = intent.getStringExtra("id").toString()
-            nameEditText.setText(intent.getStringExtra("name"))
-            notesEditText.setText(intent.getStringExtra("notes"))
-            raritySpinner.setSelection(rarityTypes[intent.getStringExtra("rarity")]!!)
+            try {
+                modifyId = intent.getStringExtra("id").toString()
+                nameEditText.setText(intent.getStringExtra("name"))
+                notesEditText.setText(intent.getStringExtra("notes"))
+                raritySpinner.setSelection(rarityTypes[intent.getStringExtra("rarity")]!!)
 
-            latLng = intent.getStringExtra("latLng")!!
-            address = intent.getStringExtra("address")!!
-            uploadImageView.setImageBitmap(Utils.getBitmapFromMemCache(intent.getStringExtra("id").toString()))
+                latLng = intent.getStringExtra("latLng")!!
+                address = intent.getStringExtra("address")!!
+                uploadImageView.setImageBitmap(
+                    Utils.getBitmapFromMemCache(
+                        intent.getStringExtra("id").toString()
+                    )
+                )
 
-            findViewById<Button>(R.id.btnAdd).visibility = View.GONE
+                findViewById<Button>(R.id.btnAdd).visibility = View.GONE
+            }catch (e:java.lang.Exception){
 
+            }
         } else {
             findViewById<Button>(R.id.btnUpdate).visibility = View.GONE
             findViewById<Button>(R.id.btnDelete).visibility = View.GONE
